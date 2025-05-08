@@ -1,0 +1,17 @@
+project/
+├── login.html
+├── register.html
+└── assets/
+    ├── css/
+    │   └── style.css
+    ├── js/
+    │   └── script.js
+    └── images/
+        ├── shapes/
+        │   ├── blob-1.svg
+        │   ├── blob-2.svg
+        │   └── sparkle.svg
+        └── illustrations/
+            ├── login-bunny.svg
+            ├── register-cat.svg
+            └── logo-icon.svg
