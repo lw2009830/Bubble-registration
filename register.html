@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble - 可爱注册</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="sparkle"></div>
+    </div>
+
+    <div class="container">
+        <form class="register-form">
+            <div class="logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#A0E7E5"/>
+                    <circle cx="35" cy="40" r="8" fill="#fff"/>
+                    <circle cx="65" cy="40" r="8" fill="#fff"/>
+                    <path d="M30 70 Q50 85 70 70" stroke="#fff" stroke-width="4" fill="none"/>
+                </svg>
+                <h1>加入Bubble</h1>
+            </div>
+            
+            <div class="illustration">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="80" fill="#B5EAEA"/>
+                    <circle cx="70" cy="80" r="10" fill="#fff"/>
+                    <circle cx="130" cy="80" r="10" fill="#fff"/>
+                    <circle cx="70" cy="80" r="4" fill="#333"/>
+                    <circle cx="130" cy="80" r="4" fill="#333"/>
+                    <path d="M90 120 Q100 130 110 120" stroke="#333" stroke-width="2" fill="none"/>
+                    <path d="M60 60 L40 30" stroke="#333" stroke-width="3" fill="none"/>
+                    <path d="M140 60 L160 30" stroke="#333" stroke-width="3" fill="none"/>
+                    <path d="M50 150 Q70 170 90 150 Q110 170 130 150" stroke="#333" stroke-width="3" fill="none"/>
+                </svg>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" placeholder=" " id="username" required />
+                <label for="username">用户名</label>
+                <span class="focus-border"></span>
+                <div class="hint">4-16个字符，可使用字母、数字和下划线</div>
+            </div>
+            
+            <div class="input-group">
+                <input type="email" placeholder=" " id="email" required />
+                <label for="email">电子邮箱</label>
+                <span class="focus-border"></span>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" placeholder=" " id="password" required />
+                <label for="password">密码</label>
+                <span class="focus-border"></span>
+                <div class="hint">至少8个字符，包含字母和数字</div>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" placeholder=" " id="confirm-password" required />
+                <label for="confirm-password">确认密码</label>
+                <span class="focus-border"></span>
+            </div>
+            
+            <div class="terms">
+                <input type="checkbox" id="agree-terms" required />
+                <label for="agree-terms">我已阅读并同意<a href="#">服务条款</a>和<a href="#">隐私政策</a></label>
+            </div>
+            
+            <button class="bubble-btn" id="registerBtn" type="submit">
+                <span>立即注册</span>
+                <div class="bubble-effect"></div>
+            </button>
+            
+            <p class="login-link">已有账号? <a href="login.html">立即登录</a></p>
+        </form>
+    </div>
+
+    <div class="notification" id="notification">
+        <div class="notification-content"></div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // 注册页特定JS
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerForm = document.querySelector('.register-form');
+            const registerBtn = document.getElementById('registerBtn');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            const notification = document.getElementById('notification');
+            const notificationContent = document.querySelector('.notification-content');
+            
+            // 按钮气泡效果
+            registerBtn.addEventListener('click', function(e) {
+                createBubbleEffect(e, this);
+            });
+            
+            // 密码验证
+            function validatePassword() {
+                if(passwordInput.value !== confirmPasswordInput.value) {
+                    confirmPasswordInput.setCustomValidity('密码不匹配');
+                    return false;
+                } else {
+                    confirmPasswordInput.setCustomValidity('');
+                    return true;
+                }
+            }
+            
+            passwordInput.addEventListener('input', validatePassword);
+            confirmPasswordInput.addEventListener('input', validatePassword);
+            
+            // 表单提交
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if(!validatePassword()) {
+                    showNotification('密码不匹配', 'error');
+                    return;
+                }
+                
+                // 模拟注册请求
+                setTimeout(() => {
+                    showNotification('注册成功! 欢迎加入Bubble~');
+                    
+                    // 重置表单
+                    registerForm.reset();
+                    
+                    // 3秒后跳转 (模拟)
+                    setTimeout(() => {
+                        // window.location.href = 'welcome.html';
+                        console.log('跳转到欢迎页面');
+                    }, 1500);
+                }, 1000);
+            });
+            
+            // 显示通知
+            function showNotification(message, type = 'success') {
+                notificationContent.textContent = message;
+                notification.className = 'notification';
+                notification.classList.add(type);
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // 创建气泡效果
+            function createBubbleEffect(e, button) {
+                const bubble = button.querySelector('.bubble-effect');
+                
+                // 重置动画
+                bubble.style.animation = 'none';
+                bubble.offsetHeight;
+                bubble.style.animation = null;
+                
+                // 设置气泡位置
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                bubble.style.left = `${x}px`;
+                bubble.style.top = `${y}px`;
+            }
+        });
+    </script>
+</body>
+</html>
