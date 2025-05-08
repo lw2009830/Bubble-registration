@@ -1,7 +1,5 @@
 # Bubble-registration
 
-![Bubble Preview](https://www,sustc.top/upload/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_9-5-2025_1010_154.64.244.140.jpeg)
-
 > 现代化俏皮可爱的登录与注册系统  
 > Modern playful and cute login and registration system
 
