@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble - 可爱登录</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Baloo+2:wght@600&display=swap" rel="stylesheet>
+</head>
+<body>
+    <div class="background">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="sparkle"></div>
+    </div>
+
+    <div class="container">
+        <form class="login-form">
+            <div class="logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#FF9E9E"/>
+                    <circle cx="35" cy="40" r="8" fill="#fff"/>
+                    <circle cx="65" cy="40" r="8" fill="#fff"/>
+                    <path d="M30 70 Q50 85 70 70" stroke="#fff" stroke-width="4" fill="none"/>
+                </svg>
+                <h1>欢迎回来</h1>
+            </div>
+            
+            <div class="illustration">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="80" fill="#FFD6A5"/>
+                    <circle cx="70" cy="80" r="15" fill="#fff"/>
+                    <circle cx="130" cy="80" r="15" fill="#fff"/>
+                    <circle cx="70" cy="80" r="7" fill="#333"/>
+                    <circle cx="130" cy="80" r="7" fill="#333"/>
+                    <path d="M90 120 Q100 135 110 120" stroke="#333" stroke-width="3" fill="none"/>
+                    <ellipse cx="60" cy="60" rx="10" ry="15" fill="#FFD6A5" transform="rotate(-30 60 60)"/>
+                    <ellipse cx="140" cy="60" rx="10" ry="15" fill="#FFD6A5" transform="rotate(30 140 60)"/>
+                </svg>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" placeholder=" " id="username" required />
+                <label for="username">用户名</label>
+                <span class="focus-border"></span>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" placeholder=" " id="password" required />
+                <label for="password">密码</label>
+                <span class="focus-border"></span>
+                <div class="hint">试试输入"meow"有惊喜</div>
+            </div>
+            
+            <button class="bubble-btn" id="loginBtn" type="submit">
+                <span>登录</span>
+                <div class="bubble-effect"></div>
+            </button>
+            
+            <p class="register-link">还没有账号? <a href="register.html">立即注册</a></p>
+        </form>
+    </div>
+
+    <div class="notification" id="notification">
+        <div class="notification-content"></div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // 登录页特定JS
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.querySelector('.login-form');
+            const loginBtn = document.getElementById('loginBtn');
+            const passwordInput = document.getElementById('password');
+            const notification = document.getElementById('notification');
+            const notificationContent = document.querySelector('.notification-content');
+            
+            // 按钮气泡效果
+            loginBtn.addEventListener('click', function(e) {
+                createBubbleEffect(e, this);
+            });
+            
+            // 彩蛋 - 输入特定密码
+            passwordInput.addEventListener('input', function() {
+                if(this.value.toLowerCase() === 'meow') {
+                    showNotification('🐱 喵呜~ 发现彩蛋!', 'success');
+                }
+            });
+            
+            // 表单提交
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 模拟登录请求
+                setTimeout(() => {
+                    showNotification('登录成功! 欢迎回来~');
+                    
+                    // 3秒后跳转 (模拟)
+                    setTimeout(() => {
+                        // window.location.href = 'dashboard.html';
+                        console.log('跳转到仪表盘');
+                    }, 1500);
+                }, 1000);
+            });
+            
+            // 显示通知
+            function showNotification(message, type = 'success') {
+                notificationContent.textContent = message;
+                notification.className = 'notification';
+                notification.classList.add(type);
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // 创建气泡效果
+            function createBubbleEffect(e, button) {
+                const bubble = button.querySelector('.bubble-effect');
+                
+                // 重置动画
+                bubble.style.animation = 'none';
+                bubble.offsetHeight;
+                bubble.style.animation = null;
+                
+                // 设置气泡位置
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                bubble.style.left = `${x}px`;
+                bubble.style.top = `${y}px`;
+            }
+        });
+    </script>
+</body>
+</html>
